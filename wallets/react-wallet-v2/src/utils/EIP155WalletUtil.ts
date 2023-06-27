@@ -16,11 +16,11 @@ export function createOrRestoreEIP155Wallet() {
   const mnemonic2 = localStorage.getItem('EIP155_MNEMONIC_2')
 
   if (mnemonic1 && mnemonic2) {
-    wallet1 = EIP155Lib.init({ mnemonic: mnemonic1 })
-    wallet2 = EIP155Lib.init({ mnemonic: mnemonic2 })
+    wallet1 = EIP155Lib.init()
+    wallet2 = EIP155Lib.init()
   } else {
-    wallet1 = EIP155Lib.init({})
-    wallet2 = EIP155Lib.init({})
+    wallet1 = EIP155Lib.init()
+    wallet2 = EIP155Lib.init()
 
     // Don't store mnemonic in local storage in a production project!
     localStorage.setItem('EIP155_MNEMONIC_1', wallet1.getMnemonic())

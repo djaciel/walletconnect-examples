@@ -1,14 +1,7 @@
 import ModalStore from '@/store/ModalStore'
 import SessionProposalModal from '@/views/SessionProposalModal'
 import SessionSendTransactionModal from '@/views/SessionSendTransactionModal'
-import SessionSignCosmosModal from '@/views/SessionSignCosmosModal'
 import SessionRequestModal from '@/views/SessionSignModal'
-import SessionSignNearModal from '@/views/SessionSignNearModal'
-import SessionSignPolkadotModal from '@/views/SessionSignPolkadotModal'
-import SessionSignSolanaModal from '@/views/SessionSignSolanaModal'
-import SessionSignMultiversxModal from '@/views/SessionSignMultiversxModal'
-import SessionSignTronModal from '@/views/SessionSignTronModal'
-import SessionSignTezosModal from '@/views/SessionSignTezosModal'
 import SessionSignTypedDataModal from '@/views/SessionSignTypedDataModal'
 import SessionUnsuportedMethodModal from '@/views/SessionUnsuportedMethodModal'
 import LegacySessionProposalModal from '@/views/LegacySessionProposalModal'
@@ -28,13 +21,6 @@ export default function Modal() {
       {view === 'SessionSignTypedDataModal' && <SessionSignTypedDataModal />}
       {view === 'SessionSendTransactionModal' && <SessionSendTransactionModal />}
       {view === 'SessionUnsuportedMethodModal' && <SessionUnsuportedMethodModal />}
-      {view === 'SessionSignCosmosModal' && <SessionSignCosmosModal />}
-      {view === 'SessionSignSolanaModal' && <SessionSignSolanaModal />}
-      {view === 'SessionSignPolkadotModal' && <SessionSignPolkadotModal />}
-      {view === 'SessionSignNearModal' && <SessionSignNearModal />}
-      {view === 'SessionSignMultiversxModal' && <SessionSignMultiversxModal />}
-      {view === 'SessionSignTronModal' && <SessionSignTronModal />}
-      {view === 'SessionSignTezosModal' && <SessionSignTezosModal />}
       {view === 'LegacySessionProposalModal' && <LegacySessionProposalModal />}
       {view === 'LegacySessionSignModal' && <LegacySessionSignModal />}
       {view === 'LegacySessionSignTypedDataModal' && <LegacySessionSignTypedDataModal />}

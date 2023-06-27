@@ -1,26 +1,16 @@
 import PageHeader from '@/components/PageHeader'
 import RelayRegionPicker from '@/components/RelayRegionPicker'
 import SettingsStore from '@/store/SettingsStore'
-import { cosmosWallets } from '@/utils/CosmosWalletUtil'
 import { eip155Wallets } from '@/utils/EIP155WalletUtil'
-import { solanaWallets } from '@/utils/SolanaWalletUtil'
-import { multiversxWallets } from '@/utils/MultiversxWalletUtil'
-import { tronWallets } from '@/utils/TronWalletUtil'
 import { Card, Divider, Row, Switch, Text } from '@nextui-org/react'
 import { Fragment } from 'react'
 import { useSnapshot } from 'valtio'
 import packageJSON from '../../package.json'
-import { tezosWallets } from '@/utils/TezosWalletUtil'
 
 export default function SettingsPage() {
   const {
     testNets,
     eip155Address,
-    cosmosAddress,
-    solanaAddress,
-    multiversxAddress,
-    tronAddress,
-    tezosAddress
   } = useSnapshot(SettingsStore.state)
 
   return (
@@ -74,41 +64,6 @@ export default function SettingsPage() {
       </Text>
       <Card bordered borderWeight="light" css={{ minHeight: '100px' }}>
         <Text css={{ fontFamily: '$mono' }}>{eip155Wallets[eip155Address].getMnemonic()}</Text>
-      </Card>
-
-      <Text h4 css={{ marginTop: '$10', marginBottom: '$5' }}>
-        Cosmos Mnemonic
-      </Text>
-      <Card bordered borderWeight="light" css={{ minHeight: '100px' }}>
-        <Text css={{ fontFamily: '$mono' }}>{cosmosWallets[cosmosAddress].getMnemonic()}</Text>
-      </Card>
-
-      <Text h4 css={{ marginTop: '$10', marginBottom: '$5' }}>
-        Solana Secret Key
-      </Text>
-      <Card bordered borderWeight="light" css={{ minHeight: '215px', wordWrap: 'break-word' }}>
-        <Text css={{ fontFamily: '$mono' }}>{solanaWallets[solanaAddress].getSecretKey()}</Text>
-      </Card>
-
-      <Text h4 css={{ marginTop: '$10', marginBottom: '$5' }}>
-        MultiversX Mnemonic
-      </Text>
-      <Card bordered borderWeight="light" css={{ minHeight: '215px', wordWrap: 'break-word' }}>
-        <Text css={{ fontFamily: '$mono' }}>{multiversxWallets[multiversxAddress].getMnemonic()}</Text>
-      </Card>
-
-      <Text h4 css={{ marginTop: '$10', marginBottom: '$5' }}>
-        Tron Private Key
-      </Text>
-      <Card bordered borderWeight="light" css={{ minHeight: '100px', wordWrap: 'break-word' }}>
-        <Text css={{ fontFamily: '$mono' }}>{tronWallets[tronAddress].privateKey}</Text>
-      </Card>
-
-      <Text h4 css={{ marginTop: '$10', marginBottom: '$5' }}>
-        Tezos Mnemonic
-      </Text>
-      <Card bordered borderWeight="light" css={{ minHeight: '100px', wordWrap: 'break-word' }}>
-        <Text css={{ fontFamily: '$mono' }}>{tezosWallets[tezosAddress].getMnemonic()}</Text>
       </Card>
     </Fragment>
   )
