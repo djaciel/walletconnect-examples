@@ -33,6 +33,7 @@ export default function useInitialization() {
   }, [relayerRegionURL])
 
   useEffect(() => {
+    console.log('---------- useInitialization')
     if (!initialized) {
       onInitialize()
     }

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { type NextPage } from "next";
 import dynamic from "next/dynamic";
 import { Web3UserV1 } from "@nexeraid/web3-user-sdk";
@@ -55,66 +55,55 @@ const metatx = {
 };
 
 const Demo: NextPage = () => {
-  const [initialized, setInitialized] = useState(false);
+  const [web3UserInitialized, setWeb3UserInitialized] = useState(false);
   const [web3User, setWeb3User] = useState<Web3UserV1>();
   const [mnemonic, setMnemonic] = useState<string>("");
 
+  const onInit = useCallback(async () => {
+    if (
+      !process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID ||
+      !process.env.NEXT_PUBLIC_WEB3AUTH_VERIFIER
+    ) {
+      alert("No CLIENT_ID or VERIFIER found");
+      return;
+    }
+
+    try {
+      console.log("Initializing Web3UserV1")
+
+      const web3User = new Web3UserV1({
+        chainId: 80001,
+        clientId: process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID,
+        verifier: process.env.NEXT_PUBLIC_WEB3AUTH_VERIFIER,
+        rpc: "https://rpc-mumbai.maticvigil.com",
+        baseUrl: window.location.origin,
+        redirectPathName: "demo",
+      });
+
+      console.log(window.location.origin)
+      console.log('------------------ web3User', web3User)
+
+      await web3User.getInstance();
+
+      console.log('------------------ web3User post', web3User)
+
+      setWeb3UserInitialized(true);
+      setWeb3User(web3User);
+    } catch (error) {
+      console.error("error", error);
+    }
+  }, []);
+
   useEffect(() => {
-    const init = async () => {
-      if (initialized) {
-        return;
-      }
-
-      console.log(
-        "value",
-        process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID,
-        process.env.NEXT_PUBLIC_WEB3AUTH_VERIFIER,
-      );
-
-      if (
-        !process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID ||
-        !process.env.NEXT_PUBLIC_WEB3AUTH_VERIFIER
-      ) {
-        alert("No CLIENT_ID or VERIFIER found");
-        return;
-      }
-
-      try {
-        console.log("Initializing Web3UserV1")
-
-        const web3User = new Web3UserV1({
-          chainId: 80001,
-          clientId: process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID,
-          verifier: process.env.NEXT_PUBLIC_WEB3AUTH_VERIFIER,
-          rpc: "https://rpc-mumbai.maticvigil.com",
-          baseUrl: window.location.origin,
-          redirectPathName: "demo",
-        });
-
-        console.log(window.location.origin)
-        console.log('web3User', web3User)
-
-        await web3User.getInstance();
-
-        console.log('------------------ web3User post', web3User)
-
-        setInitialized(true);
-        setWeb3User(web3User);
-        //setTKeyUser(tKeyUser);
-      } catch (error) {
-        console.error("error", error);
-      }
-
-      
-    };
-
-    void init();
-  }, [initialized]);
+    if (!web3UserInitialized) {
+      onInit()
+    }
+  }, [web3UserInitialized]);
 
   // Init Service Provider inside the useEffect Method
   useEffect(() => {
     const init = async () => {
-      if (!initialized) {
+      if (!web3UserInitialized) {
         return;
       }
       // Initialization of Service Provider
@@ -130,7 +119,7 @@ const Demo: NextPage = () => {
       }
     };
     void init();
-  }, [initialized]);
+  }, [web3UserInitialized]);
 
   const triggerLogin = async () => {
     const queryParams = new URLSearchParams(window.location.search);
@@ -143,9 +132,7 @@ const Demo: NextPage = () => {
       return;
     }
 
-    console.log("web3User", web3User)
-
-    await web3User?.getInstance();
+    console.log("------ trying to connect web3User", web3User)
 
     try {
       uiConsole("Calling connect...");
@@ -158,7 +145,7 @@ const Demo: NextPage = () => {
 
   const keyDetails = () => {
     if (!web3User) {
-      uiConsole("tKey not initialized yet");
+      uiConsole("tKey not web3UserInitialized yet");
       return;
     }
     const keyDetails = web3User.instance?.getKeyDetails();
