@@ -60,10 +60,10 @@ export default function SettingsPage() {
       </Text>
 
       <Text h4 css={{ marginTop: '$5', marginBottom: '$5' }}>
-        EIP155 Mnemonic
+        EIP155 Private Key
       </Text>
       <Card bordered borderWeight="light" css={{ minHeight: '100px' }}>
-        <Text css={{ fontFamily: '$mono' }}>{eip155Wallets[eip155Address].getMnemonic()}</Text>
+        <Text css={{ fontFamily: '$mono' }}>{eip155Wallets[eip155Address].getPrivateKey()}</Text>
       </Card>
     </Fragment>
   )

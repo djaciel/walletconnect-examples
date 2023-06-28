@@ -33,13 +33,6 @@ export const EIP155_MAINNET_CHAINS = {
     rgb: '130, 71, 229',
     rpc: 'https://polygon-rpc.com/'
   },
-  'eip155:10': {
-    chainId: 10,
-    name: 'Optimism',
-    logo: '/chain-logos/eip155-10.png',
-    rgb: '235, 0, 25',
-    rpc: 'https://mainnet.optimism.io'
-  }
 }
 
 export const EIP155_TEST_CHAINS = {
@@ -64,13 +57,6 @@ export const EIP155_TEST_CHAINS = {
     rgb: '130, 71, 229',
     rpc: 'https://matic-mumbai.chainstacklabs.com'
   },
-  'eip155:420': {
-    chainId: 420,
-    name: 'Optimism Goerli',
-    logo: '/chain-logos/eip155-10.png',
-    rgb: '235, 0, 25',
-    rpc: 'https://goerli.optimism.io'
-  }
 }
 
 export const EIP155_CHAINS = { ...EIP155_MAINNET_CHAINS, ...EIP155_TEST_CHAINS }

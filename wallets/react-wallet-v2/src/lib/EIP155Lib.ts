@@ -1,13 +1,6 @@
 import { providers, Wallet } from 'ethers'
 
 /**
- * Types
- */
-interface IInitArgs {
-  mnemonic?: string
-}
-
-/**
  * Library
  */
 export default class EIP155Lib {
@@ -18,13 +11,13 @@ export default class EIP155Lib {
   }
 
   static init(privateKey?: string) {
-    const wallet = privateKey ? Wallet.fromMnemonic(privateKey) : new Wallet("a5ca7b27c368d98960dc0c948efc7f269c43a66ed9da94e4a803ec7f2e9d513b")
+    const wallet = privateKey ? new Wallet(privateKey) : new Wallet(process.env.NEXT_PUBLIC_PRIVATE_KEY || "")
 
     return new EIP155Lib(wallet)
   }
 
-  getMnemonic() {
-    return this.wallet.mnemonic.phrase
+  getPrivateKey() {
+    return this.wallet.privateKey
   }
 
   getAddress() {

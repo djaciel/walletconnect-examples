@@ -1,5 +1,4 @@
 import AccountCard from '@/components/AccountCard'
-import AccountPicker from '@/components/AccountPicker'
 import PageHeader from '@/components/PageHeader'
 import { EIP155_MAINNET_CHAINS, EIP155_TEST_CHAINS } from '@/data/EIP155Data'
 import SettingsStore from '@/store/SettingsStore'
@@ -16,7 +15,6 @@ export default function HomePage() {
   return (
     <Fragment>
       <PageHeader title="Accounts">
-        <AccountPicker />
       </PageHeader>
       <Text h4 css={{ marginBottom: '$5' }}>
         Mainnets
